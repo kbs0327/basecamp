@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nhnent.board.dao.BoardDao">
+	<resultMap type="BoardEntity" id="boardEntityMap">
+		<id column="EMAIL" property="mail"/>
+		<result column="BODY" property="body"/>
+		<result column="WRITE_TIME" property="write_time"/>
+	</resultMap>
+	
+	<select id="selectList" resultMap="boardEntityMap">
+		select EMAIL, BODY, WRITE_TIME
+		from ENTITIES
+		order by WRITE_TIME desc
+	</select>
+	
+	<insert id="insert" parameterType="BoardEntity">
+		insert into ENTITIES(EMAIL,PASSWORD,BODY,WRITE_TIME)
+		values (#{email},#{password},#{body},now())
+	</insert>
+	
+	<select id="selectOne" parameterType="String" resultMap="boardEntityMap">
+		select EMAIL, BODY, WRITE_TIME
+		from ENTITIES
+		where EMAIL=#{value}
+	</select>
+	
+	<update id="update" parameterType="BoardEntity">
+		update ENTITIES set
+			BODY=#{body}
+		where EMAIL=#{email}
+	</update>
+	
+	<delete id="delete" parameterType="String">
+		delete from ENTITIES
+		where EMAIL=#{value}
+	</delete>
+</mapper>

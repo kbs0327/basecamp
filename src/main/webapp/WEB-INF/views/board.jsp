@@ -8,7 +8,7 @@
 </head>
 <body>
 <form action="add" method="post">
-	이메일 : <input type = "text" name = "EMAIL">
+	이메일 : <input type = "text" name = "email">
 	비밀번호 : <input type = "password" name = "password"><br>
 	본문<br>
 	<textarea rows="10" cols="100" name = "body"></textarea><br>
