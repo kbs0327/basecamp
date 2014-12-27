@@ -1,6 +1,5 @@
 package com.nhnent.board.dao;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -31,6 +30,7 @@ public class BoardDaoImpl implements BoardDao{
 		}
 	}
 	
+	//완료후 키 값을 반환
 	@Override
 	public int insert(BoardEntity entity) throws Exception {
 		// TODO Auto-generated method stub
@@ -39,19 +39,22 @@ public class BoardDaoImpl implements BoardDao{
 		try {
 			int count = sqlSession.insert("com.nhnent.board.dao.BoardDao.insert", entity);
 			sqlSession.commit();
-			return count;
+			if(count == 1) {
+				return entity.getEno();
+			}
+			return 0;
 		} finally {
 			sqlSession.close();
 		}
 	}
 	
 	@Override
-	public BoardEntity selectOne(String email) throws Exception {
+	public BoardEntity selectOne(int no) throws Exception {
 		// TODO Auto-generated method stub
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		try {
-			return sqlSession.selectOne("com.nhnent.board.dao.BoardDao.selectOne", email);
+			return sqlSession.selectOne("com.nhnent.board.dao.BoardDao.selectOne", no);
 		} finally {
 			sqlSession.close();
 		}
@@ -72,22 +75,16 @@ public class BoardDaoImpl implements BoardDao{
 	}
 	
 	@Override
-	public int delete(String email) throws Exception {
+	public int delete(int no) throws Exception {
 		// TODO Auto-generated method stub
 		SqlSession sqlSession = sqlSessionFactory.openSession();
 		
 		try {
-			int count = sqlSession.delete("com.nhnent.board.dao.BoardDao.delete", email);
+			int count = sqlSession.delete("com.nhnent.board.dao.BoardDao.delete", no);
 			sqlSession.commit();
 			return count;
 		} finally {
 			sqlSession.close();
 		}
-	}
-
-	@Override
-	public BoardEntity exist(String email, String password) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
 	}
 }

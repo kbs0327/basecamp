@@ -4,36 +4,41 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.nhnent.board.dao.BoardDao">
 	<resultMap type="BoardEntity" id="boardEntityMap">
-		<id column="EMAIL" property="mail"/>
+		<id column="ENO" property="eno"/>
+		<result column="EMAIL" property="email"/>
 		<result column="BODY" property="body"/>
 		<result column="WRITE_TIME" property="write_time"/>
 	</resultMap>
 	
 	<select id="selectList" resultMap="boardEntityMap">
-		select EMAIL, BODY, WRITE_TIME
+		select ENO, EMAIL, BODY, WRITE_TIME
 		from ENTITIES
 		order by WRITE_TIME desc
 	</select>
 	
 	<insert id="insert" parameterType="BoardEntity">
+		<selectKey resultType="int" keyProperty="eno" order="AFTER">
+                SELECT MAX(ENO) FROM ENTITIES
+        </selectKey>
 		insert into ENTITIES(EMAIL,PASSWORD,BODY,WRITE_TIME)
 		values (#{email},#{password},#{body},now())
 	</insert>
 	
-	<select id="selectOne" parameterType="String" resultMap="boardEntityMap">
+	<select id="selectOne" parameterType="int" resultMap="boardEntityMap">
 		select EMAIL, BODY, WRITE_TIME
 		from ENTITIES
-		where EMAIL=#{value}
+		where ENO=#{value}
 	</select>
 	
 	<update id="update" parameterType="BoardEntity">
 		update ENTITIES set
 			BODY=#{body}
-		where EMAIL=#{email}
+		where ENO=#{eno}
 	</update>
 	
-	<delete id="delete" parameterType="String">
+	<delete id="delete" parameterType="int">
 		delete from ENTITIES
-		where EMAIL=#{value}
+		where ENO=#{value}
 	</delete>
+
 </mapper>

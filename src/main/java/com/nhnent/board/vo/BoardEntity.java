@@ -1,14 +1,23 @@
 package com.nhnent.board.vo;
 
+import java.sql.Time;
 import java.util.Date;
 
 public class BoardEntity {
+	private int eno;
 	private String email;
 	private String password;
 	private String body;
-	private Date writingDate;
+	private Time write_time;
 	
 	
+	public int getEno() {
+		return eno;
+	}
+	public BoardEntity setEno(int eno) {
+		this.eno = eno;
+		return this;
+	}
 	public String getEmail() {
 		return email;
 	}
@@ -30,11 +39,11 @@ public class BoardEntity {
 		this.body = body;
 		return this;
 	}
-	public Date getWritingDate() {
-		return writingDate;
+	public Date getWrite_time() {
+		return write_time;
 	}
-	public BoardEntity setWritingDate(Date writingDate) {
-		this.writingDate = writingDate;
+	public BoardEntity setWrite_time(Time writingDate) {
+		this.write_time = writingDate;
 		return this;
 	}
 }

@@ -6,9 +6,8 @@ import com.nhnent.board.vo.BoardEntity;
 
 public interface BoardDao {
 	List<BoardEntity> selectList() throws Exception;
-	int insert(BoardEntity entity) throws Exception;
-	int delete(String email) throws Exception;
-	BoardEntity selectOne(String email) throws Exception;
+	int insert(BoardEntity entity) throws Exception;//완료후 키값을 반환
+	int delete(int no) throws Exception;
+	BoardEntity selectOne(int no) throws Exception;
 	int update(BoardEntity entity) throws Exception;
-	BoardEntity exist(String email, String password) throws Exception;
 }
