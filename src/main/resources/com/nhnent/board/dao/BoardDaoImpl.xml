@@ -7,32 +7,46 @@
 		<id column="ENO" property="eno"/>
 		<result column="EMAIL" property="email"/>
 		<result column="BODY" property="body"/>
-		<result column="WRITE_TIME" property="write_time"/>
+		<result column="WRITE_TIME" property="writeTime"/>
+		<result column="EDIT_TIME" property="editTime"/>
+	</resultMap>
+	
+	<resultMap type="BoardEntity" id="boardEntityPasswordMap">
+		<id column="ENO" property="eno"/>
+		<result column="PASSWORD" property="password"/>
 	</resultMap>
 	
 	<select id="selectList" resultMap="boardEntityMap">
-		select ENO, EMAIL, BODY, WRITE_TIME
+		select ENO, EMAIL, BODY, WRITE_TIME, EDIT_TIME
 		from ENTITIES
-		order by WRITE_TIME desc
+		order by EDIT_TIME desc
 	</select>
+	
+	<select id="selectOne" parameterType="int" resultMap="boardEntityMap">
+		select EMAIL, BODY, WRITE_TIME, EDIT_TIME
+		from ENTITIES
+		where ENO=#{value}
+	</select>
+	
+	<select id="selectPassword" parameterType="int" resultMap="boardEntityPasswordMap">
+		select ENO, PASSWORD
+		from ENTITIES
+		where ENO=#{value}
+	</select>
+	
 	
 	<insert id="insert" parameterType="BoardEntity">
 		<selectKey resultType="int" keyProperty="eno" order="AFTER">
                 SELECT MAX(ENO) FROM ENTITIES
         </selectKey>
-		insert into ENTITIES(EMAIL,PASSWORD,BODY,WRITE_TIME)
-		values (#{email},#{password},#{body},now())
+		insert into ENTITIES(EMAIL,PASSWORD,BODY,WRITE_TIME,EDIT_TIME)
+		values (#{email},#{password},#{body},now(),now())
 	</insert>
-	
-	<select id="selectOne" parameterType="int" resultMap="boardEntityMap">
-		select EMAIL, BODY, WRITE_TIME
-		from ENTITIES
-		where ENO=#{value}
-	</select>
 	
 	<update id="update" parameterType="BoardEntity">
 		update ENTITIES set
-			BODY=#{body}
+			BODY=#{body},
+			EDIT_TIME=now()
 		where ENO=#{eno}
 	</update>
 	

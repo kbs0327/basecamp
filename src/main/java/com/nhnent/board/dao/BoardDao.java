@@ -10,4 +10,5 @@ public interface BoardDao {
 	int delete(int no) throws Exception;
 	BoardEntity selectOne(int no) throws Exception;
 	int update(BoardEntity entity) throws Exception;
+	BoardEntity selectPassword(int no) throws Exception;
 }

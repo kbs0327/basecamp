@@ -30,6 +30,30 @@ public class BoardDaoImpl implements BoardDao{
 		}
 	}
 	
+	@Override
+	public BoardEntity selectOne(int no) throws Exception {
+		// TODO Auto-generated method stub
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		try {
+			return sqlSession.selectOne("com.nhnent.board.dao.BoardDao.selectOne", no);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	@Override
+	public BoardEntity selectPassword(int no) throws Exception {
+		// TODO Auto-generated method stub
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		try {
+			return sqlSession.selectOne("com.nhnent.board.dao.BoardDao.selectPassword", no);
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
 	//완료후 키 값을 반환
 	@Override
 	public int insert(BoardEntity entity) throws Exception {
@@ -48,17 +72,7 @@ public class BoardDaoImpl implements BoardDao{
 		}
 	}
 	
-	@Override
-	public BoardEntity selectOne(int no) throws Exception {
-		// TODO Auto-generated method stub
-		SqlSession sqlSession = sqlSessionFactory.openSession();
-		
-		try {
-			return sqlSession.selectOne("com.nhnent.board.dao.BoardDao.selectOne", no);
-		} finally {
-			sqlSession.close();
-		}
-	}
+	
 	
 	@Override
 	public int update(BoardEntity entity) throws Exception {
@@ -87,4 +101,6 @@ public class BoardDaoImpl implements BoardDao{
 			sqlSession.close();
 		}
 	}
+	
+	
 }

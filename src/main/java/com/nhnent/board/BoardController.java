@@ -24,8 +24,10 @@ public class BoardController {
 	BoardDao boardDao;
 	
 	@RequestMapping(value = "/", method=RequestMethod.GET)
-	public String boardHome(Locale locale, Model model) {
+	public String boardHome(Locale locale, Model model) throws Exception {
 		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		model.addAttribute("entityList", boardDao.selectList());
 		
 		return "board";
 	}
@@ -38,5 +40,20 @@ public class BoardController {
 		boardDao.insert(be);
 		
 		response.sendRedirect("/board/");
+	}
+	
+	@RequestMapping(value = "/edit", method=RequestMethod.POST)
+	public String editBoardEntity(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		BoardEntity be = new BoardEntity();
+		be.setEno(Integer.parseInt(request.getParameter("eno")));
+		
+		be = boardDao.selectPassword(Integer.parseInt(request.getParameter("eno")));
+		if(be.checkPassword(request.getParameter("password"))) {
+			be.setBody(request.getParameter("body"));
+			boardDao.update(be);
+			response.sendRedirect("/board/");
+		}
+		
+		return "error";
 	}
 }

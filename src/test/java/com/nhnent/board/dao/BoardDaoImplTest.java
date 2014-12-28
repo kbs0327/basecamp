@@ -89,7 +89,22 @@ public class BoardDaoImplTest {
 			boardDao.delete(no1);
 			boardDao.delete(no2);
 		}
+	}
+	
+	@Test
+	public void testSelectPassword() throws Exception {
+		BoardEntity be = new BoardEntity();
+		be.setEmail("aa@aa.com").setPassword("11").setBody("aa");
 		
+		int no = boardDao.insert(be);
+		
+		try {
+			BoardEntity temp = boardDao.selectPassword(no);
+			
+			assertThat(be.getPassword(), is(temp.getPassword()));
+		} finally {
+			boardDao.delete(no);
+		}
 	}
 
 }

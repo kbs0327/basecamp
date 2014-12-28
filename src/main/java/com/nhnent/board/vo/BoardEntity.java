@@ -8,7 +8,8 @@ public class BoardEntity {
 	private String email;
 	private String password;
 	private String body;
-	private Time write_time;
+	private Time writeTime;
+	private Time editTime;
 	
 	
 	public int getEno() {
@@ -39,11 +40,22 @@ public class BoardEntity {
 		this.body = body;
 		return this;
 	}
-	public Date getWrite_time() {
-		return write_time;
+	public Date getWriteTime() {
+		return writeTime;
 	}
-	public BoardEntity setWrite_time(Time writingDate) {
-		this.write_time = writingDate;
+	public BoardEntity setWriteTime(Time writeTime) {
+		this.writeTime = writeTime;
 		return this;
+	}
+	public Time getEditTime() {
+		return editTime;
+	}
+	public BoardEntity setEditTime(Time editTime) {
+		this.editTime = editTime;
+		return this;
+	}
+	
+	public boolean checkPassword(String password) {
+		return this.password.equals(password);
 	}
 }

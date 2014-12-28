@@ -4,6 +4,7 @@ CREATE TABLE [entities] (
 	[password] CHARACTER VARYING (255) NOT NULL,
 	[body] CHARACTER VARYING (40960),
 	[write_time] DATETIME NOT NULL,
+	[edit_time] DATETIME NOT NULL,
 	CONSTRAINT [pk] PRIMARY KEY([eno])
 )
 REUSE_OID,
