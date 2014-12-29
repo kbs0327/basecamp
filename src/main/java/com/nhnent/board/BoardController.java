@@ -1,5 +1,6 @@
 package com.nhnent.board;
 
+import java.util.List;
 import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,17 +30,27 @@ public class BoardController {
 		
 		model.addAttribute("entityList", boardDao.selectList());
 		
+		List<BoardEntity> list = boardDao.selectList();
+		System.out.println(list.get(0).getEditTime());
+		
 		return "board";
 	}
 	
 	@RequestMapping(value = "/add", method=RequestMethod.POST)
-	public void addBoardEntity(HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public String addBoardEntity(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		BoardEntity be = new BoardEntity();
-		be.setEmail(request.getParameter("email")).setPassword(request.getParameter("password")).setBody(request.getParameter("body"));
+		if(!BoardEntity.checkEmail(request.getParameter("email"))) {
+			return "emailFormatError";
+		}
+		be.setEmail(request.getParameter("email"))
+			.setPassword(request.getParameter("password"))
+			.setBody(request.getParameter("body"));
 		
 		boardDao.insert(be);
 		
 		response.sendRedirect("/board/");
+		
+		return null;//this is unreachable
 	}
 	
 	@RequestMapping(value = "/edit", method=RequestMethod.POST)
@@ -54,6 +65,6 @@ public class BoardController {
 			response.sendRedirect("/board/");
 		}
 		
-		return "error";
+		return "passwordError";
 	}
 }

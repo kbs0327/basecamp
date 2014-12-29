@@ -15,7 +15,7 @@ import com.nhnent.board.vo.BoardEntity;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={
-		"file:src/test/resources/com/nhnent/board/dao/*.xml"})
+		"file:src/test/resources/com/nhnent/board/*.xml"})
 public class BoardDaoImplTest {
 
 	@Autowired
