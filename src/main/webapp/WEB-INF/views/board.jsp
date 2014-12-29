@@ -49,6 +49,12 @@
 			document.addForm.submit();
 		}
 	}
+	
+	transDateFormat = function(date) {
+		var colIndex = date.lastIndexOf(":");
+		var str =  date.substring(0,colIndex);
+		document.write(str);
+	}
 </script>
 <title>게시판</title>
 </head>
@@ -85,7 +91,7 @@
 			<tr>
 				<td>이메일 : ${entity.email}</td>
 				<td>비밀번호 : <input type = "password" name = "password"></td>
-				<td>변경시간 : ${entity.editTime}</td>
+				<td>변경시간 : <script type="text/javascript">transDateFormat('${entity.editTime}')</script></td>
 			</tr>
 			<tr>
 				<td colspan="3">본문</td>

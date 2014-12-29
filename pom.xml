@@ -204,9 +204,19 @@
 		    <version>3.0.1</version>
 		    <scope>provided</scope>
 		</dependency>
-				
 		
-
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.jayway.jsonpath</groupId>
+			<artifactId>json-path-assert</artifactId>
+			<version>1.2.0</version>
+		</dependency>
+		
 	</dependencies>
     <build>
         <plugins>

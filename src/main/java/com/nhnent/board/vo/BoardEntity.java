@@ -41,14 +41,14 @@ public class BoardEntity {
 		return this;
 	}
 	public String getWriteTime() {
-		return new SimpleDateFormat("yyyy년 M월 d일 a h:m").format(writeTime);
+		return new SimpleDateFormat("yyyy년 M월 d일 a h:m:s").format(writeTime);
 	}
 	public BoardEntity setWriteTime(Date writeTime) {
 		this.writeTime = writeTime;
 		return this;
 	}
 	public String getEditTime() {
-		return new SimpleDateFormat("yyyy년 M월 d일 a h:m").format(editTime);
+		return new SimpleDateFormat("yyyy년 M월 d일 a h:m:s-S").format(editTime);
 	}
 	public BoardEntity setEditTime(Date editTime) {
 		this.editTime = editTime;
