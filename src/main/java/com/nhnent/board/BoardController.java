@@ -30,9 +30,6 @@ public class BoardController {
 		
 		model.addAttribute("entityList", boardDao.selectList());
 		
-		List<BoardEntity> list = boardDao.selectList();
-		System.out.println(list.get(0).getEditTime());
-		
 		return "board";
 	}
 	
