@@ -4,7 +4,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<!-- Bootstrap -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
 <script type="text/javascript">
 	checkEmail=function() {
 		var email = document.addForm.email.value;
@@ -59,56 +61,93 @@
 <title>게시판</title>
 </head>
 <body>
-<form action="add" name="addForm" method="post">
-	<table>
-		<tr>
-			<td width="50%">이메일 : <input type = "text" name = "email"></td>
-			<td width="50%">비밀번호 : <input type = "password" name = "password"></td>
-		</tr>
-		<tr>
-			<td colspan="2">본문</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<textarea rows="10" cols="100" name = "body"></textarea>
-			</td>
-		</tr>
-		<tr>
-			<td align="right">
-				<input type="button" value="추가" onclick="fncAddSubmit()">
-			</td>
-			<td align="left">
-				<input type="reset" value="취소">
-			</td>
-		</tr>
-	</table>	
-</form>
-<br>
-
-<c:forEach var="entity" items="${entityList}">
-	<form action="edit?eno=${entity.eno}" method="post">
-		<table>
-			<tr>
-				<td>이메일 : ${entity.email}</td>
-				<td>비밀번호 : <input type = "password" name = "password"></td>
-				<td>변경시간 : <script type="text/javascript">transDateFormat('${entity.editTime}')</script></td>
-			</tr>
-			<tr>
-				<td colspan="3">본문</td>
-			</tr>
-			<tr>
-				<td colspan="3">
-					<textarea rows="10" cols="100" name = "body">${entity.body}</textarea>
-				</td>
-			</tr>
-			<tr>
-				<td align="center" colspan="3">
-					<input type="submit" value="수정">
-				</td>
-			</tr>
-		</table>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<center><h2><b>방명록 추가</b></h2></center>
+		<form action="add" name="addForm" method="post">
+			<table class="table">
+				<tr>
+					<td width="50%">
+						<div class="input-group input-group">
+						  <span class="input-group-addon" id="sizing-addon2">Email</span>
+						  <input type="text" name="email" class="form-control" aria-describedby="sizing-addon2">
+						</div>
+					</td>
+					<td width="50%">
+						<div class="input-group input-group">
+						  <span class="input-group-addon" id="sizing-addon2">Password</span>
+						  <input type="password" name="password" class="form-control" aria-describedby="sizing-addon2">
+						</div>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<textarea rows="5" name = "body"  class="form-control" placeholder="본문"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<td align="right">
+						<button type="button" class="btn btn-primary" onclick="fncAddSubmit()">추가</button>
+					</td>
+					<td align="left">
+						<input type="reset" class="btn btn-warning" value="취소">
+					</td>
+				</tr>
+			</table>
+		</form>
 		<br>
-	</form>
-</c:forEach>
+		<br>
+		<center><h2><b>방명록 목록</b></h2></center>
+		<c:forEach var="entity" items="${entityList}">
+			<form action="edit?eno=${entity.eno}" method="post" class="form-horizontal">
+				<table class="table">
+					<tr>
+						<td width="100">
+							<div class="form-group">
+							    <label class="col-sm-2 control-label">Email</label>
+							    <div class="col-sm-10">
+							      <p class="form-control-static">${entity.email}</p>
+							    </div>
+							 </div>
+						</td>
+					</tr>
+					<tr>
+						<td width="50%">
+							<div class="form-group">
+							    <label class="col-sm-2 control-label">Password</label>
+							    <div class="col-sm-6">
+							      <input type="password" name="password" class="form-control" aria-describedby="sizing-addon2">
+							    </div>
+							 </div>	
+						</td>
+					</tr>
+					<tr>
+						<td colspan="2">
+							<div class="form-group">
+							    <label class="col-sm-2 control-label">변경시간</label>
+							    <div class="col-sm-10">
+							      <p class="form-control-static"><script type="text/javascript">transDateFormat('${entity.editTime}')</script></p>
+							    </div>
+							 </div>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="3">
+							<textarea rows="5" cols="100" name = "body" class="form-control">${entity.body}</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td align="center" colspan="3">
+							<input type="submit" class="btn btn-primary" value="수정">
+						</td>
+					</tr>
+				</table>
+				<br>
+			</form>
+		</c:forEach>
+	</div>
+	<div class="col-md-3"></div>
+</div>	
 </body>
 </html>
