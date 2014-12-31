@@ -158,6 +158,5 @@ public class BoardControllerTest {
 				.andExpect(view().name("emailFormatError"));
 		
 		List<BoardEntity> list = boardDao.selectList();
-		boardDao.delete(list.get(0).getEno());
 	}
 }

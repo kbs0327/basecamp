@@ -19,9 +19,9 @@
 
  <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="cubrid.jdbc.driver.CUBRIDDriver"/>
-		<property name="url" value="jdbc:cubrid:localhost:33000:studyDB:public::"/>
+		<property name="url" value="jdbc:cubrid:localhost:33000:demodb:public::"/>
 		<property name="username" value="dba"/>
-		<property name="password" value="1234"/>
+		<property name="password" value=""/>
 		<property name="maxActive" value="20"/>
 		<property name="maxWait" value="6000"/>
 		<property name="poolPreparedStatements" value="true"/>
