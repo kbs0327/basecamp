@@ -9,13 +9,8 @@ env:
   - CUBRID_VERSION=8.4.1
 
 install: 
-  # CUBRID operates on IPv4 address, while Travis defaults to IPv6.
-  # Therefore, we need to explicitly override the default `hostname`
-  # to point to an IPv4 address.
-  - sudo hostname localhost
-  # Make sure the target directory for cookbooks exists.
-  - mkdir -p /tmp/chef-solo
-  # Prepare a file with runlist for Chef Solo.
-  - echo '{"cubrid":{"version":"'$CUBRID_VERSION'"},"run_list":["cubrid::demodb"]}' > cubrid_chef.json
-  # Install CUBRID via Chef Solo. Download all cookbooks from a remote URL.
-  - sudo chef-solo -j cubrid_chef.json -r http://sourceforge.net/projects/cubrid/files/CUBRID-Demo-Virtual-Machines/Vagrant/chef-cookbooks.tar.gz/download
+   - echo 'yes' | sudo add-apt-repository ppa:cubrid/cubrid
+   - sudo apt-get update - sudo apt-get install cubrid 
+   - /etc/profile.d/cubrid.sh 
+   - sudo apt-get install cubrid-demodb 
+   - echo '/opt/
