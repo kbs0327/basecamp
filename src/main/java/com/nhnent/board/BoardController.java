@@ -1,7 +1,6 @@
 package com.nhnent.board;
 
 import java.io.PrintWriter;
-import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -15,8 +14,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.nhnent.board.dao.BoardDao;
 import com.nhnent.board.vo.BoardEntity;
@@ -36,7 +33,7 @@ public class BoardController {
 		List<BoardEntity> list = boardDao.selectList();
 		
 		model.addAttribute("entityList", list);
-		
+
 		return "board";
 	}
 	
@@ -49,9 +46,6 @@ public class BoardController {
 		be.setEmail(request.getParameter("email"))
 			.setPassword(request.getParameter("password"))
 			.setBody(request.getParameter("body"));
-		
-		System.out.println(request.getParameter("email"));
-		System.out.println(request.getParameter("body"));
 		
 		boardDao.insert(be);
 		
