@@ -13,5 +13,5 @@ install:
    - sudo apt-get update 
    - sudo apt-get install cubrid 
    - /etc/profile.d/cubrid.sh 
-   - sudo apt-get install cubrid-studydb 
+   - sudo apt-get install cubrid-demodb 
    - echo '/opt/'
