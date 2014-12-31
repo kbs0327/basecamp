@@ -26,7 +26,7 @@ public class BoardDaoImplTest {
 	BoardDao boardDao;
 	
 	@Before
-	private void setup() {
+	public void setup() {
 		// TODO Auto-generated method stub
 		try {
 			boardDao.createTable();
