@@ -6,6 +6,9 @@ import static org.junit.Assert.assertThat;
 
 import java.util.List;
 
+
+
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +24,17 @@ public class BoardDaoImplTest {
 
 	@Autowired
 	BoardDao boardDao;
+	
+	@Before
+	private void setup() {
+		// TODO Auto-generated method stub
+		try {
+			boardDao.createTable();
+		} catch(Exception e) {
+			//do nothing
+			//테이블 생성 에러 무시
+		}
+	}
 	
 	@Test
 	public void testInsert() throws Exception {

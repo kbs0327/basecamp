@@ -11,6 +11,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,6 +43,13 @@ public class BoardControllerTest {
 	public void setup() {
 		// TODO Auto-generated method stub
 		mockMvc = MockMvcBuilders.webAppContextSetup(context).build();
+		try {
+			boardDao.createTable();
+		} catch(Exception e) {
+			//do nothing
+			//테이블 생성 에러 무시
+		}
+		
 	}
 	
 	@Test

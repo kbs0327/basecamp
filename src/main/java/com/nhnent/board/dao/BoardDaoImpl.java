@@ -31,6 +31,18 @@ public class BoardDaoImpl implements BoardDao{
 	}
 	
 	@Override
+	public void createTable() {
+		SqlSession sqlSession = sqlSessionFactory.openSession();
+		
+		try {
+			sqlSession.update("com.nhnent.board.dao.BoardDao.createTable");
+			sqlSession.commit();
+		} finally {
+			sqlSession.close();
+		}
+	}
+	
+	@Override
 	public BoardEntity selectOne(int no) throws Exception {
 		// TODO Auto-generated method stub
 		SqlSession sqlSession = sqlSessionFactory.openSession();
