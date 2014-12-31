@@ -50,6 +50,9 @@ public class BoardController {
 			.setPassword(request.getParameter("password"))
 			.setBody(request.getParameter("body"));
 		
+		System.out.println(request.getParameter("email"));
+		System.out.println(request.getParameter("body"));
+		
 		boardDao.insert(be);
 		
 		response.sendRedirect("/board/");
