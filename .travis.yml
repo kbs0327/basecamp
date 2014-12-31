@@ -10,7 +10,8 @@ env:
 
 install: 
    - echo 'yes' | sudo add-apt-repository ppa:cubrid/cubrid
-   - sudo apt-get update - sudo apt-get install cubrid 
+   - sudo apt-get update 
+   - sudo apt-get install cubrid 
    - /etc/profile.d/cubrid.sh 
    - sudo apt-get install cubrid-demodb 
    - echo '/opt/
