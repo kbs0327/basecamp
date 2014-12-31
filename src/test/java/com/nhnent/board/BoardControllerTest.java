@@ -113,8 +113,7 @@ public class BoardControllerTest {
 						.param("password", "11")
 						.param("body", "aabb")
 					).andExpect(status().is(302));
-			
-			
+
 			List<BoardEntity> list = boardDao.selectList();
 			assertThat(list.get(0).getBody(), is("aabb"));
 			
@@ -139,7 +138,6 @@ public class BoardControllerTest {
 						.param("password", "11")
 						.param("body", "aabb")
 					).andExpect(status().is(302));
-			
 			
 			List<BoardEntity> list = boardDao.selectList();
 			assertNotNull(list.get(0).getEditTime());

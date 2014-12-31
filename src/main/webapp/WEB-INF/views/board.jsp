@@ -7,58 +7,87 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<!-- Bootstrap -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css" rel="stylesheet">
-<script type="text/javascript">
-	checkEmail=function() {
-		var email = document.addForm.email.value;
-		var result = true;
-		
-		if(email == "") { //존재하는지 확인
-			alert("email을 입력해 주세요.");
-			return false;
-		}
-		
-		var atIndex = email.indexOf("@");
-		if(atIndex == -1 || atIndex != email.lastIndexOf("@")) { //@가 1개만 존재하는지 확인
-			alert("email형식에 맞지 않습니다.");
-			return false;
-		}
-		
-		var dotIndex = email.indexOf(".");
-		if(dotIndex == -1 || dotIndex != email.lastIndexOf(".")) { //.이 1개만 존재하는지 확인
-			alert("email형식에 맞지 않습니다.");
-			return false;
-		}
-		
-		if(atIndex == 0
-				|| dotIndex-atIndex == 1
-				|| dotIndex == email.length - 1) { //@와 . 양 옆에 문자열이 존재하는지 확인
-			alert("email형식에 맞지 않습니다.");
-			return false;
-		}
-		
-		if(atIndex < dotIndex) {
-			result = true;
-		} else {
-			alert("email형식에 맞지 않습니다.");
-			result = false;
-		}
-		
-		return result;
-	}
+    <script type="text/javascript" src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript">
+		$(function() { 
+			$(".btn-primary").click(function() {
+				if($(this).val()=="수정") {
+					var eno = $(this).attr("name");
+					var clickedDom = $(this);
+					$.ajax({
+						type:"post",
+						url: "/board/passwordConfirm",
+						dataType: "text",
+						data:"eno=" + $(this).attr("name") + "&password=" + $("#password-"+ $(this).attr("name")).val(),
+						success: function(data) {
+							if(data=="true") {
+								$("#textarea-"+eno).removeAttr("readonly");
+								var updateBtn = " <input id='update' type='submit' class='btn btn-warning' value='반영'>";
+								clickedDom.after(updateBtn);
+								clickedDom.remove();
+							} else if(data=="false"){
+								alert("password가 맞지 않습니다.");
+							}
+						},
+						error: function(data) {
+							alert("error");
+							}
+						})
+				}
+			});
+		});
 	
-	fncAddSubmit = function() {
-		if(checkEmail()) {
-			document.addForm.submit();
+		checkEmail=function() {
+			var email = document.addForm.email.value;
+			var result = true;
+			
+			if(email == "") { //존재하는지 확인
+				alert("email을 입력해 주세요.");
+				return false;
+			}
+			
+			var atIndex = email.indexOf("@");
+			if(atIndex == -1 || atIndex != email.lastIndexOf("@")) { //@가 1개만 존재하는지 확인
+				alert("email형식에 맞지 않습니다.");
+				return false;
+			}
+			
+			var dotIndex = email.indexOf(".");
+			if(dotIndex == -1 || dotIndex != email.lastIndexOf(".")) { //.이 1개만 존재하는지 확인
+				alert("email형식에 맞지 않습니다.");
+				return false;
+			}
+			
+			if(atIndex == 0
+					|| dotIndex-atIndex == 1
+					|| dotIndex == email.length - 1) { //@와 . 양 옆에 문자열이 존재하는지 확인
+				alert("email형식에 맞지 않습니다.");
+				return false;
+			}
+			
+			if(atIndex < dotIndex) {
+				result = true;
+			} else {
+				alert("email형식에 맞지 않습니다.");
+				result = false;
+			}
+			
+			return result;
 		}
-	}
-	
-	transDateFormat = function(date) {
-		var colIndex = date.lastIndexOf(":");
-		var str =  date.substring(0,colIndex);
-		document.write(str);
-	}
-</script>
-<title>게시판</title>
+		
+		fncAddSubmit = function() {
+			if(checkEmail()) {
+				document.addForm.submit();
+			}
+		}
+		
+		transDateFormat = function(date) {
+			var colIndex = date.lastIndexOf(":");
+			var str =  date.substring(0,colIndex);
+			document.write(str);
+		}
+	</script>
+	<title>게시판</title>
 </head>
 <body>
 <div class="row">
@@ -117,7 +146,7 @@
 							<div class="form-group">
 							    <label class="col-sm-2 control-label">Password</label>
 							    <div class="col-sm-6">
-							      <input type="password" name="password" class="form-control" aria-describedby="sizing-addon2">
+							      <input type="password" name="password" id="password-${entity.eno}" class="form-control" aria-describedby="sizing-addon2">
 							    </div>
 							 </div>	
 						</td>
@@ -134,12 +163,12 @@
 					</tr>
 					<tr>
 						<td colspan="3">
-							<textarea rows="5" cols="100" name = "body" class="form-control">${entity.body}</textarea>
+							<textarea id="textarea-${entity.eno}" rows="5" cols="100" name = "body" class="form-control" readonly>${entity.body}</textarea>
 						</td>
 					</tr>
 					<tr>
 						<td align="center" colspan="3">
-							<input type="submit" class="btn btn-primary" value="수정">
+							<input name="${entity.eno}" type="button" class="btn btn-primary" value="수정">
 						</td>
 					</tr>
 				</table>
